@@ -111,6 +111,7 @@
       padding: 13px;
       font-size: 15px;
       direction: rtl;
+      color: #111827;
     }
 
     .search button {
@@ -184,12 +185,93 @@
       box-shadow: 0 3px 12px rgba(0,0,0,.05);
       font-size: 13px;
       font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .category:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 18px rgba(0,0,0,.10);
+    }
+
+    .category.active {
+      background: #111827;
+      color: white;
     }
 
     .category-icon {
       font-size: 25px;
       display: block;
       margin-bottom: 7px;
+    }
+
+    .results-info {
+      display: none;
+      background: #fff;
+      padding: 14px;
+      border-radius: 14px;
+      margin-top: 25px;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .ads {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .ad {
+      background: white;
+      border-radius: 17px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,.06);
+      transition: .2s;
+    }
+
+    .ad:hover {
+      transform: translateY(-3px);
+    }
+
+    .ad-image {
+      height: 140px;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+    }
+
+    .ad-content {
+      padding: 15px;
+    }
+
+    .ad-content h4 {
+      margin: 0 0 7px;
+      font-size: 16px;
+    }
+
+    .ad-content p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .ad-category {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 9px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #d97706;
     }
 
     .empty {
@@ -204,6 +286,10 @@
     .empty a {
       color: #d97706;
       font-weight: bold;
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     footer {
@@ -238,6 +324,14 @@
 
       .categories {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ads {
+        grid-template-columns: 1fr;
+      }
+
+      .ad-image {
+        height: 170px;
       }
     }
   </style>
@@ -284,11 +378,12 @@
     <div class="search">
 
       <input
+        id="searchInput"
         type="text"
         placeholder="🔎 ابحث عن منتج أو خدمة..."
       >
 
-      <button>
+      <button onclick="searchAds()">
         بحث
       </button>
 
@@ -320,96 +415,110 @@
 
   </div>
 
+
   <div class="section-title">
+
     <h3>📂 تصفح الأقسام</h3>
-    <span>اختر القسم</span>
+
+    <span id="categoryStatus">
+      كل الإعلانات
+    </span>
+
   </div>
+
 
   <div class="categories">
 
-    <div class="category">
+    <div class="category active" onclick="filterCategory('الكل', this)">
+      <span class="category-icon">📋</span>
+      الكل
+    </div>
+
+    <div class="category" onclick="filterCategory('سيارات', this)">
       <span class="category-icon">🚗</span>
       سيارات
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('عقارات', this)">
       <span class="category-icon">🏠</span>
       عقارات
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('إلكترونيات', this)">
       <span class="category-icon">📱</span>
       إلكترونيات
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('ملابس', this)">
       <span class="category-icon">👕</span>
       ملابس
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('خدمات', this)">
       <span class="category-icon">🛠️</span>
       خدمات
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('وظائف', this)">
       <span class="category-icon">💼</span>
       وظائف
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('مستلزمات', this)">
       <span class="category-icon">🛒</span>
       مستلزمات
     </div>
 
-    <div class="category">
+    <div class="category" onclick="filterCategory('أخرى', this)">
       <span class="category-icon">📦</span>
       أخرى
     </div>
 
   </div>
 
+
+  <div
+    id="resultsInfo"
+    class="results-info"
+  ></div>
+
+
+  <!-- الإعلانات المميزة -->
+
   <div class="section-title">
+
     <h3>⭐ الإعلانات المميزة</h3>
+
     <span>ظهور أفضل</span>
-  </div>
-
-  <div class="empty">
-
-    ⭐ لا توجد إعلانات مميزة حاليًا
-
-    <br><br>
-
-    <a
-      href="https://t.me/RibhPlusBot"
-      target="_blank"
-    >
-      أضف إعلانك المميز الآن
-    </a>
 
   </div>
+
+
+  <div
+    id="featuredAds"
+    class="ads"
+  ></div>
+
+
+  <!-- أحدث الإعلانات -->
 
   <div class="section-title">
+
     <h3>🆕 أحدث الإعلانات</h3>
+
     <span>آخر ما تم نشره</span>
-  </div>
-
-  <div class="empty">
-
-    📢 لا توجد إعلانات منشورة حاليًا
-
-    <br><br>
-
-    <a
-      href="https://t.me/RibhPlusBot"
-      target="_blank"
-    >
-      كن أول من ينشر إعلانًا
-    </a>
 
   </div>
+
+
+  <div
+    id="latestAds"
+    class="ads"
+  ></div>
+
 
 </main>
+
 
 <footer>
 
@@ -424,6 +533,348 @@
   © 2026 RibhPlus — جميع الحقوق محفوظة
 
 </footer>
+
+
+<script>
+
+  /*
+   * ==========================================
+   * إعلانات تجريبية
+   * ==========================================
+   *
+   * هذه البيانات مؤقتة فقط لاختبار الموقع.
+   * لاحقًا سنستبدلها ببيانات الإعلانات الحقيقية.
+   */
+
+  const ads = [
+
+    {
+      title: "Hyundai Azera 2014",
+      description: "سيارة بحالة جيدة للبيع.",
+      category: "سيارات",
+      price: "$8,500",
+      icon: "🚗",
+      featured: true
+    },
+
+    {
+      title: "شقة للبيع",
+      description: "شقة سكنية بموقع مميز.",
+      category: "عقارات",
+      price: "$45,000",
+      icon: "🏠",
+      featured: true
+    },
+
+    {
+      title: "iPhone للبيع",
+      description: "جهاز بحالة ممتازة.",
+      category: "إلكترونيات",
+      price: "$650",
+      icon: "📱",
+      featured: false
+    },
+
+    {
+      title: "ملابس رجالية",
+      description: "تشكيلة ملابس جديدة.",
+      category: "ملابس",
+      price: "$25",
+      icon: "👕",
+      featured: false
+    },
+
+    {
+      title: "خدمات صيانة",
+      description: "صيانة وتركيب مختلف الخدمات.",
+      category: "خدمات",
+      price: "حسب الخدمة",
+      icon: "🛠️",
+      featured: false
+    },
+
+    {
+      title: "فرصة عمل",
+      description: "مطلوب موظف للعمل بدوام كامل.",
+      category: "وظائف",
+      price: "راتب شهري",
+      icon: "💼",
+      featured: false
+    },
+
+    {
+      title: "مستلزمات منزلية",
+      description: "مجموعة من المستلزمات الجديدة.",
+      category: "مستلزمات",
+      price: "$40",
+      icon: "🛒",
+      featured: false
+    },
+
+    {
+      title: "إعلان آخر",
+      description: "تفاصيل الإعلان تظهر هنا.",
+      category: "أخرى",
+      price: "قابل للتفاوض",
+      icon: "📦",
+      featured: false
+    }
+
+  ];
+
+
+  let currentCategory = "الكل";
+
+
+  /*
+   * ==========================================
+   * إنشاء بطاقة الإعلان
+   * ==========================================
+   */
+
+  function createAdCard(ad) {
+
+    return `
+      <div class="ad">
+
+        <div class="ad-image">
+          ${ad.icon}
+        </div>
+
+        <div class="ad-content">
+
+          <h4>${ad.title}</h4>
+
+          <p>
+            ${ad.description}
+          </p>
+
+          <span class="ad-category">
+            ${ad.category}
+          </span>
+
+          <div class="price">
+            ${ad.price}
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  /*
+   * ==========================================
+   * عرض الإعلانات
+   * ==========================================
+   */
+
+  function renderAds(list) {
+
+    const featuredContainer =
+      document.getElementById("featuredAds");
+
+    const latestContainer =
+      document.getElementById("latestAds");
+
+
+    const featured =
+      list.filter(ad => ad.featured);
+
+    const latest =
+      list.filter(ad => !ad.featured);
+
+
+    if (featured.length === 0) {
+
+      featuredContainer.innerHTML = `
+        <div class="empty" style="grid-column:1/-1;">
+          ⭐ لا توجد إعلانات مميزة في هذا القسم.
+        </div>
+      `;
+
+    } else {
+
+      featuredContainer.innerHTML =
+        featured.map(createAdCard).join("");
+
+    }
+
+
+    if (latest.length === 0) {
+
+      latestContainer.innerHTML = `
+        <div class="empty" style="grid-column:1/-1;">
+          📢 لا توجد إعلانات أخرى في هذا القسم.
+        </div>
+      `;
+
+    } else {
+
+      latestContainer.innerHTML =
+        latest.map(createAdCard).join("");
+
+    }
+
+  }
+
+
+  /*
+   * ==========================================
+   * فلترة الأقسام
+   * ==========================================
+   */
+
+  function filterCategory(category, element) {
+
+    currentCategory = category;
+
+
+    document
+      .querySelectorAll(".category")
+      .forEach(item => {
+        item.classList.remove("active");
+      });
+
+
+    element.classList.add("active");
+
+
+    document.getElementById("categoryStatus").textContent =
+      category === "الكل"
+        ? "كل الإعلانات"
+        : category;
+
+
+    document.getElementById("searchInput").value = "";
+
+
+    if (category === "الكل") {
+
+      renderAds(ads);
+
+      document.getElementById("resultsInfo").style.display = "none";
+
+      return;
+    }
+
+
+    const filtered =
+      ads.filter(ad => ad.category === category);
+
+
+    renderAds(filtered);
+
+
+    const info =
+      document.getElementById("resultsInfo");
+
+    info.style.display = "block";
+
+    info.textContent =
+      `📂 عرض إعلانات قسم ${category} — ${filtered.length} إعلان`;
+
+  }
+
+
+  /*
+   * ==========================================
+   * البحث
+   * ==========================================
+   */
+
+  function searchAds() {
+
+    const input =
+      document.getElementById("searchInput");
+
+    const query =
+      input.value.trim().toLowerCase();
+
+
+    if (!query) {
+
+      if (currentCategory === "الكل") {
+
+        renderAds(ads);
+
+      } else {
+
+        const filtered =
+          ads.filter(
+            ad => ad.category === currentCategory
+          );
+
+        renderAds(filtered);
+
+      }
+
+      document.getElementById("resultsInfo").style.display =
+        "none";
+
+      return;
+    }
+
+
+    const results =
+      ads.filter(ad => {
+
+        const text =
+          (
+            ad.title +
+            " " +
+            ad.description +
+            " " +
+            ad.category
+          ).toLowerCase();
+
+
+        return text.includes(query);
+
+      });
+
+
+    renderAds(results);
+
+
+    const info =
+      document.getElementById("resultsInfo");
+
+    info.style.display = "block";
+
+    info.textContent =
+      `🔎 نتائج البحث عن "${input.value}" — ${results.length} إعلان`;
+
+  }
+
+
+  /*
+   * البحث عند الضغط على Enter
+   */
+
+  document
+    .getElementById("searchInput")
+    .addEventListener("keydown", function(event) {
+
+      if (event.key === "Enter") {
+
+        searchAds();
+
+      }
+
+    });
+
+
+  /*
+   * ==========================================
+   * تشغيل الصفحة
+   * ==========================================
+   */
+
+  renderAds(ads);
+
+</script>
 
 </body>
 </html>
