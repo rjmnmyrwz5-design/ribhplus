@@ -13,74 +13,232 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6f8;
-      color: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f4f6f8;
+      color: #17202a;
+    }
+
+    a {
+      text-decoration: none;
     }
 
     header {
-      background: #111827;
+      background: linear-gradient(135deg, #111827, #1f2937);
       color: white;
-      padding: 30px 20px;
+      padding: 22px 18px 30px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+
+    .top {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      background: #f59e0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 12px;
+      color: #d1d5db;
+      margin-top: 2px;
+    }
+
+    .telegram {
+      background: #2563eb;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 28px auto 0;
       text-align: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 34px;
+    .hero h2 {
+      font-size: 30px;
+      margin: 0 0 10px;
     }
 
-    header p {
-      margin: 10px 0 0;
+    .hero p {
       color: #d1d5db;
+      margin: 0 auto 22px;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .search {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 6px;
+      border-radius: 16px;
+      display: flex;
+      box-shadow: 0 8px 25px rgba(0,0,0,.15);
+    }
+
+    .search input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 13px;
+      font-size: 15px;
+      direction: rtl;
+    }
+
+    .search button {
+      border: none;
+      background: #f59e0b;
+      color: white;
+      padding: 0 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .container {
       max-width: 1100px;
       margin: auto;
-      padding: 25px 16px 50px;
+      padding: 25px 16px 60px;
     }
 
-    .buttons {
-      display: flex;
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
       margin-bottom: 30px;
     }
 
-    .button {
-      display: inline-block;
-      padding: 13px 20px;
-      border-radius: 10px;
-      text-decoration: none;
+    .action {
+      padding: 16px;
+      border-radius: 15px;
+      text-align: center;
       color: white;
-      background: #111827;
       font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,.08);
     }
 
-    .featured-button {
+    .publish {
+      background: #111827;
+    }
+
+    .featured {
       background: #d97706;
     }
 
-    h2 {
-      margin-top: 30px;
-      margin-bottom: 16px;
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 28px 0 15px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .section-title span {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .category {
+      background: white;
+      padding: 18px 8px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .category-icon {
+      font-size: 25px;
+      display: block;
+      margin-bottom: 7px;
     }
 
     .empty {
       background: white;
       padding: 30px;
-      border-radius: 14px;
+      border-radius: 17px;
       text-align: center;
       color: #6b7280;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .empty a {
+      color: #d97706;
+      font-weight: bold;
     }
 
     footer {
+      background: #111827;
+      color: #9ca3af;
       text-align: center;
-      padding: 25px;
-      color: #6b7280;
+      padding: 25px 15px;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    @media (max-width: 700px) {
+
+      .top {
+        align-items: flex-start;
+      }
+
+      .telegram {
+        display: none;
+      }
+
+      .hero h2 {
+        font-size: 25px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -88,16 +246,64 @@
 <body>
 
 <header>
-  <h1>📢 RibhPlus</h1>
-  <p>منصة الإعلانات داخل Telegram</p>
-</header>
 
-<div class="container">
+  <div class="top">
 
-  <div class="buttons">
+    <div class="logo">
+
+      <div class="logo-icon">
+        📢
+      </div>
+
+      <div>
+        <h1>RibhPlus</h1>
+        <span>منصة الإعلانات داخل Telegram</span>
+      </div>
+
+    </div>
 
     <a
-      class="button featured-button"
+      class="telegram"
+      href="https://t.me/RibhPlusBot"
+      target="_blank"
+    >
+      فتح البوت ↗
+    </a>
+
+  </div>
+
+  <div class="hero">
+
+    <h2>بيع، اشترِ، واعرض بسهولة 🚀</h2>
+
+    <p>
+      منصة RibhPlus تساعدك على نشر إعلاناتك
+      والوصول إلى أشخاص مهتمين مباشرة من خلال Telegram.
+    </p>
+
+    <div class="search">
+
+      <input
+        type="text"
+        placeholder="🔎 ابحث عن منتج أو خدمة..."
+      >
+
+      <button>
+        بحث
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+<main class="container">
+
+  <div class="actions">
+
+    <a
+      class="action publish"
       href="https://t.me/RibhPlusBot"
       target="_blank"
     >
@@ -105,7 +311,7 @@
     </a>
 
     <a
-      class="button"
+      class="action featured"
       href="https://t.me/RibhPlusBot"
       target="_blank"
     >
@@ -114,22 +320,109 @@
 
   </div>
 
-  <h2>⭐ الإعلانات المميزة</h2>
-
-  <div class="empty">
-    سيتم عرض الإعلانات المميزة هنا.
+  <div class="section-title">
+    <h3>📂 تصفح الأقسام</h3>
+    <span>اختر القسم</span>
   </div>
 
-  <h2>🆕 أحدث الإعلانات</h2>
+  <div class="categories">
 
-  <div class="empty">
-    سيتم عرض أحدث الإعلانات هنا.
+    <div class="category">
+      <span class="category-icon">🚗</span>
+      سيارات
+    </div>
+
+    <div class="category">
+      <span class="category-icon">🏠</span>
+      عقارات
+    </div>
+
+    <div class="category">
+      <span class="category-icon">📱</span>
+      إلكترونيات
+    </div>
+
+    <div class="category">
+      <span class="category-icon">👕</span>
+      ملابس
+    </div>
+
+    <div class="category">
+      <span class="category-icon">🛠️</span>
+      خدمات
+    </div>
+
+    <div class="category">
+      <span class="category-icon">💼</span>
+      وظائف
+    </div>
+
+    <div class="category">
+      <span class="category-icon">🛒</span>
+      مستلزمات
+    </div>
+
+    <div class="category">
+      <span class="category-icon">📦</span>
+      أخرى
+    </div>
+
   </div>
 
-</div>
+  <div class="section-title">
+    <h3>⭐ الإعلانات المميزة</h3>
+    <span>ظهور أفضل</span>
+  </div>
+
+  <div class="empty">
+
+    ⭐ لا توجد إعلانات مميزة حاليًا
+
+    <br><br>
+
+    <a
+      href="https://t.me/RibhPlusBot"
+      target="_blank"
+    >
+      أضف إعلانك المميز الآن
+    </a>
+
+  </div>
+
+  <div class="section-title">
+    <h3>🆕 أحدث الإعلانات</h3>
+    <span>آخر ما تم نشره</span>
+  </div>
+
+  <div class="empty">
+
+    📢 لا توجد إعلانات منشورة حاليًا
+
+    <br><br>
+
+    <a
+      href="https://t.me/RibhPlusBot"
+      target="_blank"
+    >
+      كن أول من ينشر إعلانًا
+    </a>
+
+  </div>
+
+</main>
 
 <footer>
-  RibhPlus © 2026
+
+  <strong>RibhPlus</strong>
+
+  <br>
+
+  منصة الإعلانات داخل Telegram
+
+  <br><br>
+
+  © 2026 RibhPlus — جميع الحقوق محفوظة
+
 </footer>
 
 </body>
